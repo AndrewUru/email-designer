@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 
+import type { ButtonBlock, DividerBlock, ImageBlock, TextBlock, TwoColumnsBlock } from "@/lib/email/types";
 import { clampNumber, isValidHttpUrl } from "@/lib/email/validation";
-import type { ButtonBlock, DividerBlock, ImageBlock, TextBlock } from "@/lib/email/types";
 import { useEmailStore } from "@/store/email-store";
 
 const inputClassName =
@@ -41,7 +41,7 @@ function TextBlockFields({ block }: { block: TextBlock }) {
         />
       </LabeledField>
 
-      <LabeledField label="Alineación">
+      <LabeledField label="Alineacion">
         <select
           value={block.align}
           onChange={(event) =>
@@ -57,7 +57,7 @@ function TextBlockFields({ block }: { block: TextBlock }) {
         </select>
       </LabeledField>
 
-      <LabeledField label="Tamaño de fuente (px)">
+      <LabeledField label="Tamano de fuente (px)">
         <input
           type="number"
           min={12}
@@ -94,7 +94,7 @@ function ImageBlockFields({ block }: { block: ImageBlock }) {
           placeholder="https://..."
         />
       </LabeledField>
-      {!isValid ? <p className="text-xs text-amber-700">Introduce una URL http/https válida.</p> : null}
+      {!isValid ? <p className="text-xs text-amber-700">Introduce una URL http/https valida.</p> : null}
 
       <LabeledField label="Texto alternativo">
         <input
@@ -153,7 +153,7 @@ function ButtonBlockFields({ block }: { block: ButtonBlock }) {
       </LabeledField>
       {!isValid ? <p className="text-xs text-amber-700">La URL debe empezar por http:// o https://</p> : null}
 
-      <LabeledField label="Alineación">
+      <LabeledField label="Alineacion">
         <select
           value={block.align}
           onChange={(event) =>
@@ -223,6 +223,94 @@ function DividerBlockFields({ block }: { block: DividerBlock }) {
   );
 }
 
+function TwoColumnsBlockFields({ block }: { block: TwoColumnsBlock }) {
+  const updateBlock = useEmailStore((state) => state.updateBlock);
+
+  return (
+    <div className="space-y-3">
+      <LabeledField label="Titulo columna izquierda">
+        <input
+          value={block.leftTitle}
+          onChange={(event) =>
+            updateBlock(block.id, (current) =>
+              current.type === "columns2" ? { ...current, leftTitle: event.target.value } : current,
+            )
+          }
+          className={inputClassName}
+        />
+      </LabeledField>
+
+      <LabeledField label="Contenido columna izquierda">
+        <textarea
+          value={block.leftContent}
+          rows={4}
+          onChange={(event) =>
+            updateBlock(block.id, (current) =>
+              current.type === "columns2" ? { ...current, leftContent: event.target.value } : current,
+            )
+          }
+          className={inputClassName}
+        />
+      </LabeledField>
+
+      <LabeledField label="Titulo columna derecha">
+        <input
+          value={block.rightTitle}
+          onChange={(event) =>
+            updateBlock(block.id, (current) =>
+              current.type === "columns2" ? { ...current, rightTitle: event.target.value } : current,
+            )
+          }
+          className={inputClassName}
+        />
+      </LabeledField>
+
+      <LabeledField label="Contenido columna derecha">
+        <textarea
+          value={block.rightContent}
+          rows={4}
+          onChange={(event) =>
+            updateBlock(block.id, (current) =>
+              current.type === "columns2" ? { ...current, rightContent: event.target.value } : current,
+            )
+          }
+          className={inputClassName}
+        />
+      </LabeledField>
+
+      <LabeledField label="Color de fondo">
+        <input
+          type="color"
+          value={block.backgroundColor}
+          onChange={(event) =>
+            updateBlock(block.id, (current) =>
+              current.type === "columns2" ? { ...current, backgroundColor: event.target.value } : current,
+            )
+          }
+          className={`${inputClassName} h-10 p-1`}
+        />
+      </LabeledField>
+
+      <LabeledField label="Padding interno (px)">
+        <input
+          type="number"
+          min={8}
+          max={40}
+          value={block.padding}
+          onChange={(event) =>
+            updateBlock(block.id, (current) =>
+              current.type === "columns2"
+                ? { ...current, padding: clampNumber(Number(event.target.value), 8, 40) }
+                : current,
+            )
+          }
+          className={inputClassName}
+        />
+      </LabeledField>
+    </div>
+  );
+}
+
 export function BlockPropertiesPanel() {
   const template = useEmailStore((state) => state.template);
   const updateTheme = useEmailStore((state) => state.updateTheme);
@@ -278,6 +366,7 @@ export function BlockPropertiesPanel() {
             {selectedBlock.type === "image" ? <ImageBlockFields block={selectedBlock} /> : null}
             {selectedBlock.type === "button" ? <ButtonBlockFields block={selectedBlock} /> : null}
             {selectedBlock.type === "divider" ? <DividerBlockFields block={selectedBlock} /> : null}
+            {selectedBlock.type === "columns2" ? <TwoColumnsBlockFields block={selectedBlock} /> : null}
           </div>
         )}
       </section>

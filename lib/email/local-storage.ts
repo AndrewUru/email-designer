@@ -49,6 +49,18 @@ const isEmailBlock = (value: unknown): value is EmailBlock => {
     );
   }
 
+  if (hasType(value, "columns2")) {
+    return (
+      typeof value.leftTitle === "string" &&
+      typeof value.leftContent === "string" &&
+      typeof value.rightTitle === "string" &&
+      typeof value.rightContent === "string" &&
+      typeof value.backgroundColor === "string" &&
+      typeof value.padding === "number" &&
+      Number.isFinite(value.padding)
+    );
+  }
+
   return false;
 };
 

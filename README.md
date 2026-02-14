@@ -5,6 +5,14 @@ MVP de una herramienta web para disenar emails en dos modos:
 - `No-code` (`/`): bloques arrastrables/reordenables con panel de propiedades.
 - `Pro` (`/code`): edicion directa de MJML con preview y export.
 
+Bloques MVP incluidos:
+
+- `text`
+- `image`
+- `button`
+- `divider`
+- `columns2` (dos columnas)
+
 ## Stack
 
 - Next.js App Router + TypeScript

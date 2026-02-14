@@ -1,4 +1,12 @@
-import type { BlockType, ButtonBlock, DividerBlock, EmailBlock, ImageBlock, TextBlock } from "@/lib/email/types";
+import type {
+  BlockType,
+  ButtonBlock,
+  DividerBlock,
+  EmailBlock,
+  ImageBlock,
+  TextBlock,
+  TwoColumnsBlock,
+} from "@/lib/email/types";
 
 const randomToken = () => Math.random().toString(36).slice(2, 8);
 
@@ -36,11 +44,23 @@ const createDividerBlock = (): DividerBlock => ({
   padding: 16,
 });
 
+const createTwoColumnsBlock = (): TwoColumnsBlock => ({
+  id: createBlockId(),
+  type: "columns2",
+  leftTitle: "Columna izquierda",
+  leftContent: "Agrega aqui contenido de soporte, beneficios o contexto.",
+  rightTitle: "Columna derecha",
+  rightContent: "Usa esta columna para resumen, detalles o segundo CTA.",
+  backgroundColor: "#FFFFFF",
+  padding: 16,
+});
+
 const blockFactories: Record<BlockType, () => EmailBlock> = {
   text: createTextBlock,
   image: createImageBlock,
   button: createButtonBlock,
   divider: createDividerBlock,
+  columns2: createTwoColumnsBlock,
 };
 
 export const createBlock = (type: BlockType): EmailBlock => blockFactories[type]();

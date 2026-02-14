@@ -1,4 +1,4 @@
-export type BlockType = "text" | "image" | "button" | "divider";
+export type BlockType = "text" | "image" | "button" | "divider" | "columns2";
 
 export type HorizontalAlign = "left" | "center" | "right";
 
@@ -35,7 +35,17 @@ export interface DividerBlock extends BlockBase {
   padding: number;
 }
 
-export type EmailBlock = TextBlock | ImageBlock | ButtonBlock | DividerBlock;
+export interface TwoColumnsBlock extends BlockBase {
+  type: "columns2";
+  leftTitle: string;
+  leftContent: string;
+  rightTitle: string;
+  rightContent: string;
+  backgroundColor: string;
+  padding: number;
+}
+
+export type EmailBlock = TextBlock | ImageBlock | ButtonBlock | DividerBlock | TwoColumnsBlock;
 
 export interface EmailTheme {
   backgroundColor: string;

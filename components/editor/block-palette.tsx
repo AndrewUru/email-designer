@@ -7,7 +7,7 @@ const paletteItems: Array<{ type: BlockType; label: string; description: string 
   {
     type: "text",
     label: "Texto",
-    description: "Párrafo editable con alineación y tamaño de fuente.",
+    description: "Parrafo editable con alineacion y tamano de fuente.",
   },
   {
     type: "image",
@@ -16,13 +16,18 @@ const paletteItems: Array<{ type: BlockType; label: string; description: string 
   },
   {
     type: "button",
-    label: "Botón",
-    description: "CTA con texto, URL y alineación.",
+    label: "Boton",
+    description: "CTA con texto, URL y alineacion.",
   },
   {
     type: "divider",
     label: "Separador",
-    description: "Línea horizontal con grosor y color.",
+    description: "Linea horizontal con grosor y color.",
+  },
+  {
+    type: "columns2",
+    label: "2 columnas",
+    description: "Dos columnas con titulo y contenido en paralelo.",
   },
 ];
 

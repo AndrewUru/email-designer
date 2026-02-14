@@ -16,20 +16,23 @@ interface SortableCanvasItemProps {
 const blockTypeLabel: Record<EmailBlock["type"], string> = {
   text: "Texto",
   image: "Imagen",
-  button: "Botón",
+  button: "Boton",
   divider: "Separador",
+  columns2: "2 columnas",
 };
 
 const blockSummary = (block: EmailBlock): string => {
   switch (block.type) {
     case "text":
-      return block.content.slice(0, 90) || "Texto vacío";
+      return block.content.slice(0, 90) || "Texto vacio";
     case "image":
       return block.src || "URL pendiente";
     case "button":
       return `${block.text} -> ${block.url}`;
     case "divider":
       return `Grosor ${block.thickness}px, color ${block.color}`;
+    case "columns2":
+      return `${block.leftTitle || "Columna izquierda"} | ${block.rightTitle || "Columna derecha"}`;
     default:
       return "";
   }

@@ -17,7 +17,7 @@ const textContentToMjml = (value: string): string => {
   return escapeHtml(value).replaceAll("\n", "<br />");
 };
 
-const blockToMjml = (block: EmailBlock, textColor: string): string => {
+const blockToMjml = (block: EmailBlock, textColor: string, contentBackgroundColor: string): string => {
   switch (block.type) {
     case "text":
       return `<mj-text align="${block.align}" font-size="${block.fontSize}px" color="${textColor}" line-height="1.55" padding="12px 24px">${textContentToMjml(block.content)}</mj-text>`;
@@ -27,6 +27,17 @@ const blockToMjml = (block: EmailBlock, textColor: string): string => {
       return `<mj-button align="${block.align}" href="${escapeAttribute(block.url)}" background-color="#0F172A" color="#FFFFFF" font-size="15px" inner-padding="12px 20px" border-radius="6px" padding="8px 24px 14px">${escapeHtml(block.text)}</mj-button>`;
     case "divider":
       return `<mj-divider border-width="${block.thickness}px" border-color="${escapeAttribute(block.color)}" padding="${block.padding}px 24px" />`;
+    case "columns2":
+      return `<mj-section background-color="${escapeAttribute(block.backgroundColor || contentBackgroundColor)}" padding="0">
+        <mj-column width="50%" padding="${block.padding}px 12px ${block.padding}px 24px">
+          <mj-text color="${textColor}" font-size="16px" font-weight="700" line-height="1.4" padding="0 0 8px">${textContentToMjml(block.leftTitle)}</mj-text>
+          <mj-text color="${textColor}" font-size="14px" line-height="1.55" padding="0">${textContentToMjml(block.leftContent)}</mj-text>
+        </mj-column>
+        <mj-column width="50%" padding="${block.padding}px 24px ${block.padding}px 12px">
+          <mj-text color="${textColor}" font-size="16px" font-weight="700" line-height="1.4" padding="0 0 8px">${textContentToMjml(block.rightTitle)}</mj-text>
+          <mj-text color="${textColor}" font-size="14px" line-height="1.55" padding="0">${textContentToMjml(block.rightContent)}</mj-text>
+        </mj-column>
+      </mj-section>`;
     default:
       return "";
   }
@@ -38,7 +49,16 @@ const wrapBlockInSection = (content: string, backgroundColor: string): string =>
 
 export const templateToMjml = (template: EmailTemplate): string => {
   const bodyContent = template.blocks
-    .map((block) => wrapBlockInSection(blockToMjml(block, template.theme.textColor), template.theme.contentBackgroundColor))
+    .map((block) => {
+      if (block.type === "columns2") {
+        return blockToMjml(block, template.theme.textColor, template.theme.contentBackgroundColor);
+      }
+
+      return wrapBlockInSection(
+        blockToMjml(block, template.theme.textColor, template.theme.contentBackgroundColor),
+        template.theme.contentBackgroundColor,
+      );
+    })
     .join("");
 
   return `
