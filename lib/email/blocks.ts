@@ -23,7 +23,7 @@ const createTextBlock = (): TextBlock => ({
 const createImageBlock = (): ImageBlock => ({
   id: createBlockId(),
   type: "image",
-  src: "https://images.unsplash.com/photo-1612831455545-dc4130f6d20d?auto=format&fit=crop&w=1200&q=80",
+  src: "https://images.unsplash.com/photo-1633409361618-c73427e4e206?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   alt: "Imagen principal",
   width: 520,
 });
@@ -63,7 +63,8 @@ const blockFactories: Record<BlockType, () => EmailBlock> = {
   columns2: createTwoColumnsBlock,
 };
 
-export const createBlock = (type: BlockType): EmailBlock => blockFactories[type]();
+export const createBlock = (type: BlockType): EmailBlock =>
+  blockFactories[type]();
 
 export const duplicateBlock = (block: EmailBlock): EmailBlock => {
   return {
