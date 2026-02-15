@@ -107,6 +107,8 @@ Create a `.env.local` file:
 RESEND_API_KEY=re_xxxxx                      # Required for test emails
 EMAIL_FROM="onboarding@resend.dev"           # Default sender
 EMAIL_REPLY_TO="your-email@domain.com"       # Optional reply-to
+OPENAI_API_KEY=sk-xxxx                       # Required for AI MJML generation
+OPENAI_MODEL="gpt-4.1-mini"                  # Optional override for AI model
 ```
 
 > **Note:** If `EMAIL_FROM` is not set, defaults to `onboarding@resend.dev`
