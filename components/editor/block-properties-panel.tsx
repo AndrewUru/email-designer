@@ -2,14 +2,21 @@
 
 import { useMemo } from "react";
 
-import type { ButtonBlock, DividerBlock, ImageBlock, TextBlock, TwoColumnsBlock } from "@/lib/email/types";
+import type {
+  ButtonBlock,
+  DividerBlock,
+  ImageBlock,
+  TextBlock,
+  TwoColumnsBlock,
+} from "@/lib/email/types";
 import { clampNumber, isValidHttpUrl } from "@/lib/email/validation";
 import { useEmailStore } from "@/store/email-store";
 
 const inputClassName =
   "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500";
 
-const labelClassName = "block text-xs font-semibold uppercase tracking-wide text-slate-500";
+const labelClassName =
+  "block text-xs font-semibold uppercase tracking-wide text-slate-500";
 
 interface LabeledFieldProps {
   label: string;
@@ -35,7 +42,11 @@ function TextBlockFields({ block }: { block: TextBlock }) {
           value={block.content}
           rows={7}
           onChange={(event) =>
-            updateBlock(block.id, (current) => (current.type === "text" ? { ...current, content: event.target.value } : current))
+            updateBlock(block.id, (current) =>
+              current.type === "text"
+                ? { ...current, content: event.target.value }
+                : current,
+            )
           }
           className={inputClassName}
         />
@@ -46,7 +57,12 @@ function TextBlockFields({ block }: { block: TextBlock }) {
           value={block.align}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "text" ? { ...current, align: event.target.value as TextBlock["align"] } : current,
+              current.type === "text"
+                ? {
+                    ...current,
+                    align: event.target.value as TextBlock["align"],
+                  }
+                : current,
             )
           }
           className={inputClassName}
@@ -66,7 +82,10 @@ function TextBlockFields({ block }: { block: TextBlock }) {
           onChange={(event) =>
             updateBlock(block.id, (current) =>
               current.type === "text"
-                ? { ...current, fontSize: clampNumber(Number(event.target.value), 12, 48) }
+                ? {
+                    ...current,
+                    fontSize: clampNumber(Number(event.target.value), 12, 48),
+                  }
                 : current,
             )
           }
@@ -88,19 +107,31 @@ function ImageBlockFields({ block }: { block: ImageBlock }) {
           type="url"
           value={block.src}
           onChange={(event) =>
-            updateBlock(block.id, (current) => (current.type === "image" ? { ...current, src: event.target.value } : current))
+            updateBlock(block.id, (current) =>
+              current.type === "image"
+                ? { ...current, src: event.target.value }
+                : current,
+            )
           }
           className={inputClassName}
           placeholder="https://..."
         />
       </LabeledField>
-      {!isValid ? <p className="text-xs text-amber-700">Introduce una URL http/https valida.</p> : null}
+      {!isValid ? (
+        <p className="text-xs text-amber-700">
+          Introduce una URL http/https valida.
+        </p>
+      ) : null}
 
       <LabeledField label="Texto alternativo">
         <input
           value={block.alt}
           onChange={(event) =>
-            updateBlock(block.id, (current) => (current.type === "image" ? { ...current, alt: event.target.value } : current))
+            updateBlock(block.id, (current) =>
+              current.type === "image"
+                ? { ...current, alt: event.target.value }
+                : current,
+            )
           }
           className={inputClassName}
         />
@@ -114,7 +145,12 @@ function ImageBlockFields({ block }: { block: ImageBlock }) {
           value={block.width}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "image" ? { ...current, width: clampNumber(Number(event.target.value), 100, 600) } : current,
+              current.type === "image"
+                ? {
+                    ...current,
+                    width: clampNumber(Number(event.target.value), 100, 600),
+                  }
+                : current,
             )
           }
           className={inputClassName}
@@ -134,7 +170,11 @@ function ButtonBlockFields({ block }: { block: ButtonBlock }) {
         <input
           value={block.text}
           onChange={(event) =>
-            updateBlock(block.id, (current) => (current.type === "button" ? { ...current, text: event.target.value } : current))
+            updateBlock(block.id, (current) =>
+              current.type === "button"
+                ? { ...current, text: event.target.value }
+                : current,
+            )
           }
           className={inputClassName}
         />
@@ -145,20 +185,33 @@ function ButtonBlockFields({ block }: { block: ButtonBlock }) {
           type="url"
           value={block.url}
           onChange={(event) =>
-            updateBlock(block.id, (current) => (current.type === "button" ? { ...current, url: event.target.value } : current))
+            updateBlock(block.id, (current) =>
+              current.type === "button"
+                ? { ...current, url: event.target.value }
+                : current,
+            )
           }
           className={inputClassName}
           placeholder="https://..."
         />
       </LabeledField>
-      {!isValid ? <p className="text-xs text-amber-700">La URL debe empezar por http:// o https://</p> : null}
+      {!isValid ? (
+        <p className="text-xs text-amber-700">
+          La URL debe empezar por http:// o https://
+        </p>
+      ) : null}
 
       <LabeledField label="Alineacion">
         <select
           value={block.align}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "button" ? { ...current, align: event.target.value as ButtonBlock["align"] } : current,
+              current.type === "button"
+                ? {
+                    ...current,
+                    align: event.target.value as ButtonBlock["align"],
+                  }
+                : current,
             )
           }
           className={inputClassName}
@@ -186,7 +239,10 @@ function DividerBlockFields({ block }: { block: DividerBlock }) {
           onChange={(event) =>
             updateBlock(block.id, (current) =>
               current.type === "divider"
-                ? { ...current, thickness: clampNumber(Number(event.target.value), 1, 8) }
+                ? {
+                    ...current,
+                    thickness: clampNumber(Number(event.target.value), 1, 8),
+                  }
                 : current,
             )
           }
@@ -199,7 +255,11 @@ function DividerBlockFields({ block }: { block: DividerBlock }) {
           type="color"
           value={block.color}
           onChange={(event) =>
-            updateBlock(block.id, (current) => (current.type === "divider" ? { ...current, color: event.target.value } : current))
+            updateBlock(block.id, (current) =>
+              current.type === "divider"
+                ? { ...current, color: event.target.value }
+                : current,
+            )
           }
           className={`${inputClassName} h-10 p-1`}
         />
@@ -213,7 +273,12 @@ function DividerBlockFields({ block }: { block: DividerBlock }) {
           value={block.padding}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "divider" ? { ...current, padding: clampNumber(Number(event.target.value), 0, 48) } : current,
+              current.type === "divider"
+                ? {
+                    ...current,
+                    padding: clampNumber(Number(event.target.value), 0, 48),
+                  }
+                : current,
             )
           }
           className={inputClassName}
@@ -233,7 +298,9 @@ function TwoColumnsBlockFields({ block }: { block: TwoColumnsBlock }) {
           value={block.leftTitle}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "columns2" ? { ...current, leftTitle: event.target.value } : current,
+              current.type === "columns2"
+                ? { ...current, leftTitle: event.target.value }
+                : current,
             )
           }
           className={inputClassName}
@@ -246,7 +313,9 @@ function TwoColumnsBlockFields({ block }: { block: TwoColumnsBlock }) {
           rows={4}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "columns2" ? { ...current, leftContent: event.target.value } : current,
+              current.type === "columns2"
+                ? { ...current, leftContent: event.target.value }
+                : current,
             )
           }
           className={inputClassName}
@@ -258,7 +327,9 @@ function TwoColumnsBlockFields({ block }: { block: TwoColumnsBlock }) {
           value={block.rightTitle}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "columns2" ? { ...current, rightTitle: event.target.value } : current,
+              current.type === "columns2"
+                ? { ...current, rightTitle: event.target.value }
+                : current,
             )
           }
           className={inputClassName}
@@ -271,7 +342,9 @@ function TwoColumnsBlockFields({ block }: { block: TwoColumnsBlock }) {
           rows={4}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "columns2" ? { ...current, rightContent: event.target.value } : current,
+              current.type === "columns2"
+                ? { ...current, rightContent: event.target.value }
+                : current,
             )
           }
           className={inputClassName}
@@ -284,7 +357,9 @@ function TwoColumnsBlockFields({ block }: { block: TwoColumnsBlock }) {
           value={block.backgroundColor}
           onChange={(event) =>
             updateBlock(block.id, (current) =>
-              current.type === "columns2" ? { ...current, backgroundColor: event.target.value } : current,
+              current.type === "columns2"
+                ? { ...current, backgroundColor: event.target.value }
+                : current,
             )
           }
           className={`${inputClassName} h-10 p-1`}
@@ -300,7 +375,10 @@ function TwoColumnsBlockFields({ block }: { block: TwoColumnsBlock }) {
           onChange={(event) =>
             updateBlock(block.id, (current) =>
               current.type === "columns2"
-                ? { ...current, padding: clampNumber(Number(event.target.value), 8, 40) }
+                ? {
+                    ...current,
+                    padding: clampNumber(Number(event.target.value), 8, 40),
+                  }
                 : current,
             )
           }
@@ -322,14 +400,21 @@ export function BlockPropertiesPanel() {
 
   return (
     <aside className="space-y-4">
-      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Tema</h2>
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm overflow-hidden">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          Tema
+        </h2>
         <div className="mt-3 space-y-3">
           <LabeledField label="Color fondo">
             <input
               type="color"
               value={template.theme.backgroundColor}
-              onChange={(event) => updateTheme((theme) => ({ ...theme, backgroundColor: event.target.value }))}
+              onChange={(event) =>
+                updateTheme((theme) => ({
+                  ...theme,
+                  backgroundColor: event.target.value,
+                }))
+              }
               className={`${inputClassName} h-10 p-1`}
             />
           </LabeledField>
@@ -338,7 +423,12 @@ export function BlockPropertiesPanel() {
             <input
               type="color"
               value={template.theme.contentBackgroundColor}
-              onChange={(event) => updateTheme((theme) => ({ ...theme, contentBackgroundColor: event.target.value }))}
+              onChange={(event) =>
+                updateTheme((theme) => ({
+                  ...theme,
+                  contentBackgroundColor: event.target.value,
+                }))
+              }
               className={`${inputClassName} h-10 p-1`}
             />
           </LabeledField>
@@ -347,7 +437,12 @@ export function BlockPropertiesPanel() {
             <input
               type="color"
               value={template.theme.textColor}
-              onChange={(event) => updateTheme((theme) => ({ ...theme, textColor: event.target.value }))}
+              onChange={(event) =>
+                updateTheme((theme) => ({
+                  ...theme,
+                  textColor: event.target.value,
+                }))
+              }
               className={`${inputClassName} h-10 p-1`}
             />
           </LabeledField>
@@ -355,18 +450,30 @@ export function BlockPropertiesPanel() {
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Propiedades</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          Propiedades
+        </h2>
         {!selectedBlock ? (
           <p className="mt-3 rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
             Selecciona un bloque en el canvas para editarlo.
           </p>
         ) : (
           <div className="mt-3">
-            {selectedBlock.type === "text" ? <TextBlockFields block={selectedBlock} /> : null}
-            {selectedBlock.type === "image" ? <ImageBlockFields block={selectedBlock} /> : null}
-            {selectedBlock.type === "button" ? <ButtonBlockFields block={selectedBlock} /> : null}
-            {selectedBlock.type === "divider" ? <DividerBlockFields block={selectedBlock} /> : null}
-            {selectedBlock.type === "columns2" ? <TwoColumnsBlockFields block={selectedBlock} /> : null}
+            {selectedBlock.type === "text" ? (
+              <TextBlockFields block={selectedBlock} />
+            ) : null}
+            {selectedBlock.type === "image" ? (
+              <ImageBlockFields block={selectedBlock} />
+            ) : null}
+            {selectedBlock.type === "button" ? (
+              <ButtonBlockFields block={selectedBlock} />
+            ) : null}
+            {selectedBlock.type === "divider" ? (
+              <DividerBlockFields block={selectedBlock} />
+            ) : null}
+            {selectedBlock.type === "columns2" ? (
+              <TwoColumnsBlockFields block={selectedBlock} />
+            ) : null}
           </div>
         )}
       </section>
