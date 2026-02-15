@@ -1,204 +1,303 @@
-# Email Designer — Free drag-and-drop email builder (MJML) + Code Mode
+# 📧 Email Designer
 
-**Email Designer** is an open-source MVP web app to design email templates in two ways:
+<div align="center">
 
-- **No-code** (`/`): draggable/reorderable blocks with a properties sidebar.
-- **Pro** (`/code`): direct **MJML** editing with live preview + HTML export.
+![Email Designer Logo](https://elsaltoweb.es/wp-content/uploads/2026/02/LOGO-MAIL-DESIGN.png)
 
-🌐 Live demo: https://emaildesigner.elsaltoweb.es/  
-💻 Repository: https://github.com/AndrewUru/email-designer
+**Build beautiful, responsive email templates with drag-and-drop or code**
 
----
+[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://emaildesigner.elsaltoweb.es/)
+[![GitHub](https://img.shields.io/badge/source-github-blue?style=for-the-badge&logo=github)](https://github.com/AndrewUru/email-designer)
 
-## Features (MVP)
-
-- Drag & drop canvas (reorder blocks)
-- Block properties editor (per-block settings)
-- MJML code mode with preview
-- **Production-ready HTML export** (MJML → HTML + inline CSS)
-- Local persistence (auto save to `localStorage`)
-- “Open in Gmail” helper (copies HTML + opens Gmail compose)
-- “Send test email” via **Resend** (real HTML email rendering)
-
-### Included blocks
-- `text`
-- `image`
-- `button`
-- `divider`
-- `columns2` (two columns)
+</div>
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-- Next.js (App Router) + TypeScript
-- Tailwind CSS (v4)
-- Zustand (global state)
-- dnd-kit (drag & drop)
-- Monaco Editor (`@monaco-editor/react` with `ssr: false`)
-- MJML + Juice (`JSON → MJML → HTML (inline)`)
+<table>
+<tr>
+<td width="50%">
+
+### 🎨 No-Code Editor
+
+- Intuitive drag-and-drop interface
+- Visual block reordering
+- Real-time properties panel
+- Perfect for designers & marketers
+
+</td>
+<td width="50%">
+
+### 💻 Pro Code Mode
+
+- Direct MJML editing
+- Live preview updates
+- Full control for developers
+- Export production-ready HTML
+
+</td>
+</tr>
+</table>
+
+### 🚀 Core Capabilities
+
+- **Production-Ready Export** — MJML → HTML with inlined CSS for maximum compatibility
+- **Auto-Save** — Never lose your work with automatic localStorage persistence
+- **Gmail Integration** — One-click copy and compose
+- **Live Testing** — Send real test emails via Resend API
+- **Responsive Design** — Mobile-optimized emails out of the box
 
 ---
 
-## Getting Started
+## 🧩 Available Blocks
 
-### Install
+| Block            | Description                              |
+| ---------------- | ---------------------------------------- |
+| 📝 **Text**      | Rich text content with styling options   |
+| 🖼️ **Image**     | Responsive images with alt text          |
+| 🔘 **Button**    | Call-to-action buttons with custom links |
+| ➖ **Divider**   | Visual separators for content sections   |
+| 📐 **2 Columns** | Side-by-side content layout              |
+
+---
+
+## 🛠️ Tech Stack
+
+```
+Frontend          State & Storage       Email Processing
+━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━━  ━━━━━━━━━━━━━━━━━━
+Next.js 14        Zustand               MJML
+TypeScript        localStorage          Juice (CSS inlining)
+Tailwind CSS v4                         Resend (API)
+dnd-kit
+Monaco Editor
+```
+
+---
+
+## 🚀 Quick Start
+
 ```bash
+# 1. Clone the repository
+git clone https://github.com/AndrewUru/email-designer.git
+cd email-designer
+
+# 2. Install dependencies
 npm install
-Run
+
+# 3. Set up environment variables
+cp .env.example .env.local
+# Add your RESEND_API_KEY
+
+# 4. Run the development server
 npm run dev
-Open http://localhost:3000
 
-Scripts
-npm run dev
-npm run lint
-npm run typecheck
-npm run build
-npm run start
-Project Structure
-app/
-  api/render/route.ts         # endpoint: render MJML -> inline HTML
-  api/send-test/route.ts      # endpoint: send real HTML test email via Resend
-  code/page.tsx               # Pro mode view
-  page.tsx                    # No-code mode view
+# 5. Open in your browser
+open http://localhost:3000
+```
 
-components/editor/
-  no-code-editor.tsx
-  code-editor-view.tsx
-  block-palette.tsx
-  canvas-panel.tsx
-  sortable-canvas-item.tsx
-  block-properties-panel.tsx
-  email-preview.tsx
-  export-actions.tsx
+---
 
-hooks/
-  use-render-html.ts          # client hook: live render via /api/render
+## ⚙️ Environment Variables
 
-lib/email/
-  types.ts                    # JSON model: blocks + theme + template
-  default-template.ts
-  blocks.ts                   # factories / duplicate helpers
-  template-to-mjml.ts         # JSON -> MJML (source of truth)
-  compiler.ts                 # MJML -> HTML + inline CSS (juice)
-  render-contract.ts          # request/response contract for render API
-  validation.ts               # basic validators
+Create a `.env.local` file:
 
-src/lib/gmail/
-  compose-url.ts              # helper: build Gmail compose URL
+```env
+RESEND_API_KEY=re_xxxxx                      # Required for test emails
+EMAIL_FROM="onboarding@resend.dev"           # Default sender
+EMAIL_REPLY_TO="your-email@domain.com"       # Optional reply-to
+```
 
-store/
-  email-store.ts              # global editor state + actions
-Rendering Pipeline
-Main state lives in store/email-store.ts as a template object.
+> **Note:** If `EMAIL_FROM` is not set, defaults to `onboarding@resend.dev`
 
-The template is transformed into MJML in lib/email/template-to-mjml.ts.
+---
 
-POST /api/render compiles MJML using lib/email/compiler.ts.
+## 📁 Project Structure
 
-compiler.ts runs:
+```
+email-designer/
+├── app/
+│   ├── api/
+│   │   ├── render/route.ts          # MJML → HTML API endpoint
+│   │   └── send-test/route.ts       # Test email sending
+│   ├── code/page.tsx                # Pro code editor view
+│   └── page.tsx                     # No-code drag & drop view
+│
+├── components/editor/
+│   ├── no-code-editor.tsx           # Main no-code interface
+│   ├── code-editor-view.tsx         # MJML editor component
+│   ├── block-palette.tsx            # Draggable block library
+│   ├── canvas-panel.tsx             # Email canvas
+│   ├── sortable-canvas-item.tsx     # Individual block wrapper
+│   ├── block-properties-panel.tsx   # Properties editor
+│   ├── email-preview.tsx            # Live preview iframe
+│   └── export-actions.tsx           # Export & send actions
+│
+├── lib/email/
+│   ├── types.ts                     # TypeScript definitions
+│   ├── blocks.ts                    # Block factories
+│   ├── template-to-mjml.ts          # JSON → MJML converter
+│   ├── compiler.ts                  # MJML → HTML + inline CSS
+│   └── validation.ts                # Input validation
+│
+└── store/
+    └── email-store.ts               # Global state management
+```
 
-mjml2html(...)
+---
 
-juice(...) to inline CSS for better email client compatibility
+## 🔄 How It Works
 
-The final HTML is rendered in a sandboxed iframe and exported via copy/download.
+```mermaid
+graph LR
+    A[Editor State] -->|template-to-mjml.ts| B[MJML Code]
+    B -->|POST /api/render| C[compiler.ts]
+    C -->|mjml2html| D[HTML]
+    D -->|juice| E[Inlined CSS]
+    E --> F[Preview/Export]
+    E --> G[Send Email]
+```
 
-Local Persistence (localStorage)
-The app automatically saves/loads the template from localStorage using:
+1. **State Management** — Zustand store holds the template
+2. **MJML Generation** — Template converts to MJML syntax
+3. **Compilation** — Server-side MJML → HTML transformation
+4. **CSS Inlining** — Juice library inlines styles for email clients
+5. **Output** — Preview, export, or send via Resend
 
-email-designer.template.v1
+---
 
-Behavior:
+## 📧 Gmail Integration
 
-On load, it attempts to restore the saved template.
+### Open in Gmail
 
-On any change (blocks/theme), it persists automatically.
+1. Click "Open in Gmail" in toolbar
+2. HTML automatically copies to clipboard
+3. Gmail compose window opens
+4. **Note:** Paste manually (Gmail doesn't render HTML in URL params)
 
-The toolbar includes manual actions:
+### Send Test Email
 
-Save template
+1. Click "Send Test" in toolbar
+2. Enter recipient and subject
+3. Sends real HTML email via Resend
+4. ✅ Renders perfectly in Gmail
 
-Load saved
+---
 
-Reset (clears storage and restores default template)
+## 🎨 Adding a Custom Block
 
-Open in Gmail
-The toolbar action Open in Gmail lives in components/editor/export-actions.tsx.
+<details>
+<summary>Click to expand step-by-step guide</summary>
 
-How it works:
+### 1. Define the type (`lib/email/types.ts`)
 
-Uses the same final HTML as export (copy/download).
+```typescript
+export type BlockType = "text" | "image" | "button" | "divider" | "columns2" | "YOUR_BLOCK";
 
-Always copies the HTML to clipboard before opening Gmail.
+export interface YourBlock {
+  id: string;
+  type: "YOUR_BLOCK";
+  // ... your properties
+}
 
-Builds the Gmail compose URL using buildGmailComposeUrl from src/lib/gmail/compose-url.ts.
+export type EmailBlock = TextBlock | ImageBlock | /* ... */ | YourBlock;
+```
 
-Opens Gmail via:
-window.open(url, "_blank", "noopener,noreferrer").
+### 2. Add factory (`lib/email/blocks.ts`)
 
-Limitations:
+```typescript
+export function createYourBlock(): YourBlock {
+  return {
+    id: generateId(),
+    type: "YOUR_BLOCK",
+    // ... defaults
+  };
+}
+```
 
-Gmail does not render pasted HTML in the compose body.
+### 3. Render to MJML (`lib/email/template-to-mjml.ts`)
 
-body only pre-fills plain text.
+```typescript
+function blockToMjml(block: EmailBlock): string {
+  switch (block.type) {
+    // ... existing cases
+    case "YOUR_BLOCK":
+      return `<mj-YOUR_BLOCK>${block.content}</mj-YOUR_BLOCK>`;
+  }
+}
+```
 
-The compose opens with a short message (no HTML injected in the URL).
+### 4. Add to palette (`components/editor/block-palette.tsx`)
 
-Send Test Email (Resend)
-The toolbar action Send test sends the email as real HTML (MIME), which does render correctly in Gmail.
+```typescript
+<button onClick={() => addBlock(createYourBlock())}>
+  Your Block
+</button>
+```
 
-Flow:
+### 5. Properties panel (`components/editor/block-properties-panel.tsx`)
 
-Opens a modal with To and Subject.
+```typescript
+{selectedBlock.type === "YOUR_BLOCK" && (
+  <div>
+    {/* Your form fields */}
+  </div>
+)}
+```
 
-Sends POST /api/send-test with { to, subject, html }.
+</details>
 
-Backend validates with zod and sends through resend.emails.send(...).
+---
 
-Environment Variables
-Create .env.local:
+## 📜 Available Scripts
 
-RESEND_API_KEY=re_xxxxx
-EMAIL_FROM="onboarding@resend.dev"
-EMAIL_REPLY_TO="your-email@domain.com" # optional
-Notes:
+| Command             | Description              |
+| ------------------- | ------------------------ |
+| `npm run dev`       | Start development server |
+| `npm run build`     | Build for production     |
+| `npm run start`     | Run production build     |
+| `npm run lint`      | Run ESLint               |
+| `npm run typecheck` | Check TypeScript types   |
 
-If EMAIL_FROM is not set, the app should fall back to onboarding@resend.dev.
+---
 
-EMAIL_REPLY_TO is optional.
+## 🗺️ Roadmap
 
-Adding a New Block
-Add the block type in lib/email/types.ts:
+- [ ] 📤 Image upload with cloud storage (Vercel Blob/S3/R2)
+- [ ] 🧩 More blocks (header, footer, cards, spacers, N-columns)
+- [ ] ⏮️ Undo/redo functionality
+- [ ] 🎨 Template gallery with presets
+- [ ] 🔗 Shareable links with cloud persistence
+- [ ] 🌐 Multi-language support
+- [ ] 📊 Email analytics integration
 
-extend BlockType
+---
 
-create a block interface
+## 🤝 Contributing
 
-include it in the EmailBlock union
+Contributions are welcome! Here's how you can help:
 
-Add default factory in lib/email/blocks.ts.
+1. 🍴 Fork the repository
+2. 🌿 Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. 💾 Commit your changes (`git commit -m 'Add amazing feature'`)
+4. 📤 Push to the branch (`git push origin feature/amazing-feature`)
+5. 🔀 Open a Pull Request
 
-Render it to MJML in lib/email/template-to-mjml.ts (blockToMjml).
+Please follow the [Adding a Custom Block](#-adding-a-custom-block) guide when contributing new blocks.
 
-Expose insertion in components/editor/block-palette.tsx.
+---
 
-Add a summary/label in components/editor/sortable-canvas-item.tsx.
+## 📄 License
 
-Implement its form in components/editor/block-properties-panel.tsx.
+This project is open source and available under the [MIT License](LICENSE).
 
-Roadmap
-Image upload (drag & drop) with hosted URLs (Vercel Blob/S3/R2)
+---
 
-More blocks: header/footer, cards, spacers, multi-columns
+<div align="center">
 
-Undo/redo
+**Built with ❤️ using Next.js and MJML**
 
-Template gallery
+[Report Bug](https://github.com/AndrewUru/email-designer/issues) · [Request Feature](https://github.com/AndrewUru/email-designer/issues)
 
-Shareable links / cloud persistence
-
-Contributing
-PRs and issues are welcome!
-If you’re adding a new block, follow the Adding a New Block section above.
-
+</div>
