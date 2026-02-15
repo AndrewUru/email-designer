@@ -16,7 +16,7 @@ const generateMjmlPayloadSchema = z.object({
 
 const aiOutputSchema = z.object({
   subject: z.string().trim().min(1).max(180),
-  previewText: z.string().trim().min(1).max(200).optional(),
+  previewText: z.union([z.string().trim().min(1).max(200), z.null()]),
   mjml: z.string().trim().min(20),
 });
 
@@ -25,10 +25,15 @@ const outputFormatSchema: Record<string, unknown> = {
   additionalProperties: false,
   properties: {
     subject: { type: "string", minLength: 1, maxLength: 180 },
-    previewText: { type: "string", minLength: 1, maxLength: 200 },
+    previewText: {
+      anyOf: [
+        { type: "string", minLength: 1, maxLength: 200 },
+        { type: "null" },
+      ],
+    },
     mjml: { type: "string", minLength: 20 },
   },
-  required: ["subject", "mjml"],
+  required: ["subject", "previewText", "mjml"],
 };
 
 const normalizeOptional = (value: string | undefined): string | null => {
@@ -60,6 +65,7 @@ const systemPrompt = [
   "2) El campo mjml debe incluir un documento completo que empiece con <mjml> y termine con </mjml>.",
   "3) No incluyas markdown, ni explicaciones, ni texto fuera del JSON.",
   "4) Usa contenido realista para marketing y CTA claro.",
+  "5) Incluye siempre previewText. Si no aplica, usa null.",
 ].join("\n");
 
 const stripMarkdownFence = (value: string): string => {
@@ -148,7 +154,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       subject: aiOutput.subject,
-      previewText: aiOutput.previewText ?? null,
+      previewText: aiOutput.previewText,
       mjml,
       warnings,
     });
