@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Email Designer Logo](https://elsaltoweb.es/wp-content/uploads/2026/02/LOGO-MAIL-DESIGN.png)
+![Email Designer Logo](https://elsaltoweb.es/wp-content/uploads/2026/02/email-logo-2.png)
 
 **Build beautiful, responsive email templates with drag-and-drop or code**
 
