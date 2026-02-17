@@ -1,6 +1,6 @@
 "use client";
 
-import { DndContext, KeyboardSensor, PointerSensor, type DragEndEvent, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, KeyboardSensor, PointerSensor, TouchSensor, type DragEndEvent, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 import { SortableCanvasItem } from "@/components/editor/sortable-canvas-item";
@@ -18,6 +18,12 @@ export function CanvasPanel() {
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 4,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 8,
       },
     }),
     useSensor(KeyboardSensor, {

@@ -71,18 +71,21 @@ export function SortableCanvasItem({
           : "border-slate-200"
       } ${isDragging ? "opacity-80" : "opacity-100"}`}
     >
-      <div className="flex items-start justify-between gap-2">
+      <div className="flex min-w-0 items-start justify-between gap-2">
         <button
           type="button"
           onClick={onSelect}
-          className="flex-1 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+          className="min-w-0 flex-1 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
         >
           <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
             {blockTypeLabel[block.type]}
           </span>
-          <span className="mt-1 block text-sm text-slate-800">
+
+          <span className="mt-1 block text-sm text-slate-800 break-all">
             {blockSummary(block)}
           </span>
+          {/* alternativa más “UI pro”: line-clamp */}
+          {/* <span className="mt-1 block text-sm text-slate-800 break-all line-clamp-2">{blockSummary(block)}</span> */}
         </button>
 
         <button
@@ -90,7 +93,7 @@ export function SortableCanvasItem({
           {...attributes}
           {...listeners}
           aria-label="Reordenar bloque"
-          className="rounded-lg border border-slate-200 px-2 py-1 text-xs text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+          className="shrink-0 touch-none select-none rounded-lg border border-slate-200 px-2 py-1 text-xs text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
         >
           Drag
         </button>
