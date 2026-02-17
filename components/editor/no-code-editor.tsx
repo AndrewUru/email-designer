@@ -61,7 +61,7 @@ export function NoCodeEditor() {
   const hasErrors = (errors && errors.length > 0) || Boolean(errorMessage);
 
   return (
-    <main className="min-h-dvh bg-gradient-to-b from-slate-50 to-slate-100 text-slate-900">
+    <main className="min-h-dvh bg-gradient-to-b from-slate-50 to-slate-100 text-slate-900 ">
       <div className="mx-auto max-w-[1520px] px-3 py-4 sm:px-4 sm:py-6">
         {/* Topbar */}
         <header
@@ -120,16 +120,6 @@ export function NoCodeEditor() {
               >
                 Modo Pro (MJML)
               </Link>
-
-              {/* CTA primario (opcional si luego querés link al repo) */}
-              {/* <a
-                href="https://github.com/..."
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
-              >
-                GitHub
-              </a> */}
             </div>
           </div>
         </header>

@@ -38,8 +38,21 @@ const blockSummary = (block: EmailBlock): string => {
   }
 };
 
-export function SortableCanvasItem({ block, isSelected, onSelect, onDuplicate, onDelete }: SortableCanvasItemProps) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+export function SortableCanvasItem({
+  block,
+  isSelected,
+  onSelect,
+  onDuplicate,
+  onDelete,
+}: SortableCanvasItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
     id: block.id,
   });
 
@@ -52,8 +65,10 @@ export function SortableCanvasItem({ block, isSelected, onSelect, onDuplicate, o
     <li
       ref={setNodeRef}
       style={style}
-      className={`rounded-xl border bg-white p-3 shadow-sm transition ${
-        isSelected ? "border-slate-900 ring-1 ring-slate-900/20" : "border-slate-200"
+      className={`rounded-xl border bg-white p-3 shadow-sm transition overflow-hidden ${
+        isSelected
+          ? "border-slate-900 ring-1 ring-slate-900/20"
+          : "border-slate-200"
       } ${isDragging ? "opacity-80" : "opacity-100"}`}
     >
       <div className="flex items-start justify-between gap-2">
@@ -62,8 +77,12 @@ export function SortableCanvasItem({ block, isSelected, onSelect, onDuplicate, o
           onClick={onSelect}
           className="flex-1 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
         >
-          <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">{blockTypeLabel[block.type]}</span>
-          <span className="mt-1 block text-sm text-slate-800">{blockSummary(block)}</span>
+          <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+            {blockTypeLabel[block.type]}
+          </span>
+          <span className="mt-1 block text-sm text-slate-800">
+            {blockSummary(block)}
+          </span>
         </button>
 
         <button
