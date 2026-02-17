@@ -25,13 +25,21 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
   const [sendTo, setSendTo] = useState("");
   const [sendSubject, setSendSubject] = useState(DEFAULT_SUBJECT);
   const [isSendingTest, setIsSendingTest] = useState(false);
-  const saveTemplateToLocalStorage = useEmailStore((state) => state.saveTemplateToLocalStorage);
-  const loadTemplateFromLocalStorage = useEmailStore((state) => state.loadTemplateFromLocalStorage);
+  const saveTemplateToLocalStorage = useEmailStore(
+    (state) => state.saveTemplateToLocalStorage,
+  );
+  const loadTemplateFromLocalStorage = useEmailStore(
+    (state) => state.loadTemplateFromLocalStorage,
+  );
   const resetTemplate = useEmailStore((state) => state.resetTemplate);
 
   const isDisabled = !html;
   const sendToIsValid = SEND_TEST_TO_PATTERN.test(sendTo.trim());
-  const canSendTest = !isDisabled && sendToIsValid && sendSubject.trim().length > 0 && !isSendingTest;
+  const canSendTest =
+    !isDisabled &&
+    sendToIsValid &&
+    sendSubject.trim().length > 0 &&
+    !isSendingTest;
 
   const handleCopy = async () => {
     if (!html) {
@@ -61,33 +69,6 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
     setStatus("Archivo HTML descargado.");
   };
 
-  const handleOpenInGmail = async () => {
-    if (!html) {
-      return;
-    }
-
-    let copied = false;
-    try {
-      await navigator.clipboard.writeText(html);
-      copied = true;
-    } catch {
-      copied = false;
-    }
-
-    const url = buildGmailComposeUrl({
-      subject: DEFAULT_SUBJECT,
-      body: GMAIL_BODY,
-    });
-
-    const popup = window.open(url, "_blank", "noopener,noreferrer");
-    if (!popup) {
-      setStatus("No se pudo abrir Gmail. Habilita popups para este sitio.");
-      return;
-    }
-
-    setStatus(copied ? "HTML copiado al portapapeles. Abriendo Gmail..." : "Abriendo Gmail (no se pudo copiar el HTML).");
-  };
-
   const handleSendTest = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -111,17 +92,27 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
         }),
       });
 
-      const payload = (await response.json()) as { ok?: boolean; id?: string; error?: string };
+      const payload = (await response.json()) as {
+        ok?: boolean;
+        id?: string;
+        error?: string;
+      };
       if (!response.ok || !payload.ok) {
         throw new Error(payload.error ?? "No se pudo enviar la prueba.");
       }
 
-      setStatus(payload.id ? `Prueba enviada. ID: ${payload.id}` : "Prueba enviada correctamente.");
+      setStatus(
+        payload.id
+          ? `Prueba enviada. ID: ${payload.id}`
+          : "Prueba enviada correctamente.",
+      );
       setIsSendModalOpen(false);
       setSendTo("");
       setSendSubject(DEFAULT_SUBJECT);
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "No se pudo enviar la prueba.");
+      setStatus(
+        error instanceof Error ? error.message : "No se pudo enviar la prueba.",
+      );
     } finally {
       setIsSendingTest(false);
     }
@@ -129,12 +120,20 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
 
   const handleSaveTemplate = () => {
     const didSave = saveTemplateToLocalStorage();
-    setStatus(didSave ? "Template guardado en localStorage." : "No se pudo guardar el template.");
+    setStatus(
+      didSave
+        ? "Template guardado en localStorage."
+        : "No se pudo guardar el template.",
+    );
   };
 
   const handleLoadTemplate = () => {
     const didLoad = loadTemplateFromLocalStorage();
-    setStatus(didLoad ? "Template cargado desde localStorage." : "No hay un template guardado en localStorage.");
+    setStatus(
+      didLoad
+        ? "Template cargado desde localStorage."
+        : "No hay un template guardado en localStorage.",
+    );
   };
 
   const handleResetTemplate = () => {
@@ -145,7 +144,9 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
   return (
     <>
       <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Exportar</h3>
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          Exportar
+        </h3>
 
         <div className="mt-3 flex flex-wrap gap-2">
           <button
@@ -165,16 +166,6 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
           >
             Descargar .html
           </button>
-
-          <button
-            type="button"
-            onClick={() => void handleOpenInGmail()}
-            disabled={isDisabled}
-            className="rounded-lg border border-blue-300 px-3 py-2 text-sm font-medium text-blue-900 transition hover:bg-blue-50 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
-          >
-            Abrir en Gmail
-          </button>
-
           <button
             type="button"
             onClick={() => setIsSendModalOpen(true)}
@@ -186,7 +177,9 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
         </div>
 
         <div className="mt-4 border-t border-slate-200 pt-4">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Template local</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Template local
+          </h4>
           <div className="mt-2 flex flex-wrap gap-2">
             <button
               type="button"
@@ -218,7 +211,10 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
       </section>
 
       {isSendModalOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 px-4" role="presentation">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 px-4"
+          role="presentation"
+        >
           <form
             onSubmit={(event) => void handleSendTest(event)}
             className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-5 shadow-xl"
@@ -226,13 +222,20 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
             aria-modal="true"
             aria-labelledby="send-test-title"
           >
-            <h4 id="send-test-title" className="text-base font-semibold text-slate-900">
+            <h4
+              id="send-test-title"
+              className="text-base font-semibold text-slate-900"
+            >
               Enviar prueba
             </h4>
-            <p className="mt-1 text-sm text-slate-600">Este envio usa Resend para mandar el HTML real.</p>
+            <p className="mt-1 text-sm text-slate-600">
+              Este envio usa Resend para mandar el HTML real.
+            </p>
 
             <label className="mt-4 block">
-              <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">To</span>
+              <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                To
+              </span>
               <input
                 type="email"
                 value={sendTo}
@@ -243,11 +246,15 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
               />
             </label>
             {sendTo.trim() && !sendToIsValid ? (
-              <p className="mt-2 text-xs text-amber-700">Introduce un email valido.</p>
+              <p className="mt-2 text-xs text-amber-700">
+                Introduce un email valido.
+              </p>
             ) : null}
 
             <label className="mt-4 block">
-              <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">Subject</span>
+              <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Subject
+              </span>
               <input
                 type="text"
                 value={sendSubject}

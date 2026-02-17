@@ -13,9 +13,27 @@ const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const APP_NAME = "Email Designer";
+const APP_TAGLINE = "100% free & open source";
+
 export const metadata: Metadata = {
-  title: "Email Designer MVP",
-  description: "Herramienta gratuita para diseñar emails con modo no-code y modo pro MJML",
+  title: `${APP_NAME} — ${APP_TAGLINE}`,
+  description:
+    "100% free y open source. Diseñá emails con editor no-code y modo Pro con MJML. Exportá/Render HTML. Repo público para PRs.",
+  applicationName: APP_NAME,
+  metadataBase: new URL("https://emaildesigner.elsaltoweb.es/"), // cámbialo por tu dominio cuando lo tengas
+  openGraph: {
+    title: `${APP_NAME} — ${APP_TAGLINE}`,
+    description:
+      "100% free y open source. Editor no-code + MJML Pro para diseñar emails y exportar HTML.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: `${APP_NAME} — ${APP_TAGLINE}`,
+    description:
+      "100% free y open source. Editor no-code + MJML Pro para diseñar emails y exportar HTML.",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +43,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${manrope.variable} ${jetBrainsMono.variable} antialiased`}>
+      <body
+        className={`${manrope.variable} ${jetBrainsMono.variable} antialiased`}
+      >
         <TemplatePersistenceSync />
         {children}
       </body>
