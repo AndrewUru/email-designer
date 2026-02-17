@@ -1,7 +1,19 @@
 "use client";
 
-import { DndContext, KeyboardSensor, PointerSensor, TouchSensor, type DragEndEvent, useSensor, useSensors } from "@dnd-kit/core";
-import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  type DragEndEvent,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 import { SortableCanvasItem } from "@/components/editor/sortable-canvas-item";
 import { useEmailStore } from "@/store/email-store";
@@ -41,15 +53,15 @@ export function CanvasPanel() {
   };
 
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <section className="rounded-2xl border border-blue-300/20 bg-[#0a1a34] p-4 shadow-sm">
       <header className="flex items-center justify-between gap-2">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Canvas</h2>
-        <span className="text-xs text-slate-500">{blocks.length} bloques</span>
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-blue-100/80">Canvas</h2>
+        <span className="text-xs text-blue-100/70">{blocks.length} bloques</span>
       </header>
 
       {blocks.length === 0 ? (
-        <p className="mt-4 rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-600">
-          No hay bloques todavía. Añade uno desde la izquierda.
+        <p className="mt-4 rounded-xl border border-dashed border-blue-300/25 bg-blue-500/5 p-6 text-center text-sm text-blue-100/70">
+          No hay bloques todavia. Anade uno desde la izquierda.
         </p>
       ) : (
         <DndContext sensors={sensors} onDragEnd={handleDragEnd}>

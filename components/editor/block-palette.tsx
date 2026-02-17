@@ -35,9 +35,9 @@ export function BlockPalette() {
   const addBlock = useEmailStore((state) => state.addBlock);
 
   return (
-    <aside className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Bloques</h2>
-      <p className="mt-2 text-sm text-slate-600">Inserta elementos en el canvas.</p>
+    <aside className="rounded-2xl border border-blue-300/20 bg-[#0a1a34] p-4 shadow-sm">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-blue-100/80">Bloques</h2>
+      <p className="mt-2 text-sm text-blue-100/70">Inserta elementos en el canvas.</p>
 
       <div className="mt-4 space-y-3">
         {paletteItems.map((item) => (
@@ -45,10 +45,10 @@ export function BlockPalette() {
             key={item.type}
             type="button"
             onClick={() => addBlock(item.type)}
-            className="w-full rounded-xl border border-slate-200 p-3 text-left transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+            className="w-full rounded-xl border border-blue-300/20 bg-blue-500/5 p-3 text-left transition hover:border-blue-300/45 hover:bg-blue-500/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
           >
-            <span className="block text-sm font-semibold text-slate-900">{item.label}</span>
-            <span className="block text-xs text-slate-600">{item.description}</span>
+            <span className="block text-sm font-semibold text-blue-50">{item.label}</span>
+            <span className="block text-xs text-blue-100/70">{item.description}</span>
           </button>
         ))}
       </div>
