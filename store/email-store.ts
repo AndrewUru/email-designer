@@ -29,11 +29,17 @@ interface EmailStoreState {
 }
 
 const removeBlockById = (blocks: EmailBlock[], blockId: string): EmailBlock[] => blocks.filter((block) => block.id !== blockId);
+const getFirstBlockId = (template: EmailTemplate): string | null => template.blocks[0]?.id ?? null;
+const initialTemplate = createDefaultTemplate();
 
 export const useEmailStore = create<EmailStoreState>((set, get) => ({
-  template: createDefaultTemplate(),
-  selectedBlockId: null,
-  setTemplate: (template) => set(() => ({ template })),
+  template: initialTemplate,
+  selectedBlockId: getFirstBlockId(initialTemplate),
+  setTemplate: (template) =>
+    set(() => ({
+      template,
+      selectedBlockId: getFirstBlockId(template),
+    })),
   updateTheme: (updater) =>
     set((state) => ({
       template: {
@@ -123,15 +129,16 @@ export const useEmailStore = create<EmailStoreState>((set, get) => ({
 
     set(() => ({
       template: savedTemplate,
-      selectedBlockId: null,
+      selectedBlockId: getFirstBlockId(savedTemplate),
     }));
     return true;
   },
   resetTemplate: () => {
+    const defaultTemplate = createDefaultTemplate();
     clearTemplateFromLocalStorage();
     set(() => ({
-      template: createDefaultTemplate(),
-      selectedBlockId: null,
+      template: defaultTemplate,
+      selectedBlockId: getFirstBlockId(defaultTemplate),
     }));
   },
 }));
