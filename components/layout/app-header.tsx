@@ -62,20 +62,13 @@ export function AppHeader() {
 
             {/* Actions */}
             <div className="flex shrink-0 items-center gap-2">
-              <a
+              <Link
                 href="https://github.com/AndrewUru/email-designer"
                 target="_blank"
                 rel="noreferrer"
-                className="hidden rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm transition hover:bg-slate-50 hover:text-slate-900 sm:inline-flex"
-              >
-                GitHub
-              </a>
-
-              <Link
-                href="/code"
                 className="inline-flex items-center rounded-xl border border-slate-200 bg-slate-900 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-800"
               >
-                Ship →
+                Github
               </Link>
             </div>
           </div>
