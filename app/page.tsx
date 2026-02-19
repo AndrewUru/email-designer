@@ -3,11 +3,15 @@ import { NoCodeEditor } from "@/components/editor/no-code-editor";
 export default function HomePage() {
   return (
     <main className="min-h-dvh bg-[radial-gradient(circle_at_top,#0d2145_0%,#081429_45%,#060d1b_100%)] text-slate-100">
-      <header className="sticky top-0 z-50 border-b border-blue-500/20 bg-[#050b18]/80 backdrop-blur">
+      <header className="top-0 z-50 border-b border-blue-500/20 bg-[#050b18]/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-baseline gap-3">
-            <h1 className="text-sm font-semibold text-blue-100">Email Designer</h1>
-            <span className="text-xs text-blue-100/70">100% free & open source</span>
+            <h1 className="text-sm font-semibold text-blue-100">
+              Email Designer
+            </h1>
+            <span className="text-xs text-blue-100/70">
+              100% free & open source
+            </span>
           </div>
 
           <div className="flex items-center gap-2 text-xs">
