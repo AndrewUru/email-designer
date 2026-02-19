@@ -34,8 +34,12 @@ function Panel({
       {(title || subtitle) && (
         <div className="flex items-start justify-between gap-3 border-b border-blue-300/20 bg-[#08162d] px-4 py-3">
           <div>
-            {title ? <h2 className="text-sm font-semibold text-blue-50">{title}</h2> : null}
-            {subtitle ? <p className="mt-0.5 text-xs text-blue-100/70">{subtitle}</p> : null}
+            {title ? (
+              <h2 className="text-sm font-semibold text-blue-50">{title}</h2>
+            ) : null}
+            {subtitle ? (
+              <p className="mt-0.5 text-xs text-blue-100/70">{subtitle}</p>
+            ) : null}
           </div>
         </div>
       )}
@@ -51,18 +55,21 @@ export function NoCodeEditor() {
     () => ({ mode: "template", template }),
     [template],
   );
-  const { html, errors, isLoading, errorMessage } = useRenderHtml(renderRequest);
+  const { html, errors, isLoading, errorMessage } =
+    useRenderHtml(renderRequest);
 
   const hasErrors = (errors && errors.length > 0) || Boolean(errorMessage);
 
   return (
     <main className="min-h-dvh text-blue-50">
       <div className="mx-auto max-w-[1520px] px-3 py-4 sm:px-4 sm:py-6">
-        <header className="sticky top-3 z-50 mb-4 rounded-2xl border border-blue-300/20 bg-[#091429]/85 shadow-[0_14px_28px_-16px_rgba(0,0,0,0.85)] backdrop-blur">
+        <header className="top-3 z-50 mb-4 rounded-2xl border border-blue-300/20 bg-[#091429]/85 shadow-[0_14px_28px_-16px_rgba(0,0,0,0.85)] backdrop-blur">
           <div className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="truncate text-base font-semibold tracking-tight sm:text-lg">Email Designer</h1>
+                <h1 className="truncate text-base font-semibold tracking-tight sm:text-lg">
+                  Email Designer
+                </h1>
                 <span className="rounded-full border border-blue-300/20 bg-blue-500/10 px-2 py-0.5 text-[11px] font-medium text-blue-100">
                   100% free &amp; open source
                 </span>
@@ -99,13 +106,20 @@ export function NoCodeEditor() {
 
         <div className="grid grid-cols-1 gap-4 xl:grid-cols-[300px_minmax(0,1fr)_380px]">
           <aside className="xl:sticky xl:top-[88px] xl:self-start">
-            <Panel title="Bloques" subtitle="Arrastra y suelta para construir el email." className="min-h-[220px]">
+            <Panel
+              title="Bloques"
+              subtitle="Arrastra y suelta para construir el email."
+              className="min-h-[220px]"
+            >
               <BlockPalette />
             </Panel>
           </aside>
 
           <section className="space-y-4">
-            <Panel title="Canvas" subtitle="Ordena secciones, edita y ajusta el layout.">
+            <Panel
+              title="Canvas"
+              subtitle="Ordena secciones, edita y ajusta el layout."
+            >
               <CanvasPanel />
             </Panel>
 
@@ -122,13 +136,20 @@ export function NoCodeEditor() {
               />
             </Panel>
 
-            <Panel title="Export" subtitle="Descarga el HTML final para tu ESP / cliente.">
+            <Panel
+              title="Export"
+              subtitle="Descarga el HTML final para tu ESP / cliente."
+            >
               <ExportActions html={html} fileName="email-no-code.html" />
             </Panel>
           </section>
 
           <aside className="xl:sticky xl:top-[88px] xl:self-start">
-            <Panel title="Propiedades" subtitle="Edita contenido, estilos y settings del bloque." className="min-h-[220px]">
+            <Panel
+              title="Propiedades"
+              subtitle="Edita contenido, estilos y settings del bloque."
+              className="min-h-[220px]"
+            >
               <BlockPropertiesPanel />
             </Panel>
           </aside>
