@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Manrope } from "next/font/google";
+import { AppFooter } from "@/components/layout/app-footer";
+import { AppHeader } from "@/components/layout/app-header";
 import { TemplatePersistenceSync } from "@/components/editor/template-persistence-sync";
 import "./globals.css";
 
@@ -47,7 +49,11 @@ export default function RootLayout({
         className={`${manrope.variable} ${jetBrainsMono.variable} antialiased`}
       >
         <TemplatePersistenceSync />
-        {children}
+        <div className="flex min-h-dvh flex-col bg-slate-50 text-slate-900">
+          <AppHeader />
+          <div className="flex-1">{children}</div>
+          <AppFooter />
+        </div>
       </body>
     </html>
   );

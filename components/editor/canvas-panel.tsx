@@ -53,14 +53,11 @@ export function CanvasPanel() {
   };
 
   return (
-    <section className="rounded-2xl border border-blue-300/20 bg-[#0a1a34] p-4 shadow-sm">
-      <header className="flex items-center justify-between gap-2">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-blue-100/80">Canvas</h2>
-        <span className="text-xs text-blue-100/70">{blocks.length} bloques</span>
-      </header>
+    <section>
+      <p className="text-xs text-slate-500">{blocks.length} bloques</p>
 
       {blocks.length === 0 ? (
-        <p className="mt-4 rounded-xl border border-dashed border-blue-300/25 bg-blue-500/5 p-6 text-center text-sm text-blue-100/70">
+        <p className="mt-4 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm text-slate-500">
           No hay bloques todavia. Anade uno desde la izquierda.
         </p>
       ) : (

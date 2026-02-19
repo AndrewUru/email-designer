@@ -58,20 +58,22 @@ export function SortableCanvasItem({
     <li
       ref={setNodeRef}
       style={style}
-      className={`overflow-hidden rounded-xl border bg-[#102445] p-3 shadow-sm transition ${
-        isSelected ? "border-blue-300/60 ring-1 ring-blue-300/35" : "border-blue-300/20"
+      className={`overflow-hidden rounded-lg border bg-white p-3 transition ${
+        isSelected ? "border-slate-400 ring-1 ring-slate-300" : "border-slate-200"
       } ${isDragging ? "opacity-80" : "opacity-100"}`}
     >
       <div className="flex min-w-0 items-start justify-between gap-2">
         <button
           type="button"
           onClick={onSelect}
-          className="min-w-0 flex-1 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+          className="min-w-0 flex-1 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
         >
-          <span className="block text-xs font-semibold uppercase tracking-wide text-blue-100/70">
+          <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
             {blockTypeLabel[block.type]}
           </span>
-          <span className="mt-1 block break-all text-sm text-blue-50">{blockSummary(block)}</span>
+          <span className="mt-1 block break-all text-sm text-slate-900">
+            {blockSummary(block)}
+          </span>
         </button>
 
         <button
@@ -79,7 +81,7 @@ export function SortableCanvasItem({
           {...attributes}
           {...listeners}
           aria-label="Reordenar bloque"
-          className="shrink-0 touch-none select-none rounded-lg border border-blue-300/25 bg-blue-500/10 px-2 py-1 text-xs text-blue-100 transition hover:bg-blue-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+          className="shrink-0 touch-none select-none rounded-md border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
         >
           Drag
         </button>
@@ -89,14 +91,14 @@ export function SortableCanvasItem({
         <button
           type="button"
           onClick={onDuplicate}
-          className="rounded-lg border border-blue-300/25 bg-blue-500/10 px-2 py-1 text-xs text-blue-100 transition hover:bg-blue-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+          className="rounded-md border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
         >
           Duplicar
         </button>
         <button
           type="button"
           onClick={onDelete}
-          className="rounded-lg border border-red-300/30 bg-red-500/10 px-2 py-1 text-xs text-red-200 transition hover:bg-red-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+          className="rounded-md border border-red-300 bg-red-50 px-2 py-1 text-xs text-red-700 transition hover:bg-red-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
         >
           Borrar
         </button>

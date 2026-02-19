@@ -39,11 +39,8 @@ const emptyPreviewDocument = `
 
 export function EmailPreview({ html, isLoading, errors, errorMessage }: EmailPreviewProps) {
   return (
-    <section className="rounded-2xl border border-blue-300/20 bg-[#0a1a34] p-4 shadow-sm">
-      <header className="flex items-center justify-between gap-2">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-blue-100/80">Preview</h3>
-        {isLoading ? <span className="text-xs text-blue-100/70">Renderizando...</span> : null}
-      </header>
+    <section>
+      {isLoading ? <p className="text-xs text-slate-500">Renderizando...</p> : null}
 
       {errorMessage ? <p className="mt-3 rounded-lg bg-red-50 p-2 text-sm text-red-700">{errorMessage}</p> : null}
       {errors.length > 0 ? (
@@ -54,15 +51,15 @@ export function EmailPreview({ html, isLoading, errors, errorMessage }: EmailPre
         </ul>
       ) : null}
 
-      <div className="mt-3 overflow-hidden rounded-xl border border-blue-300/20 bg-[#08162d]">
+      <div className="mt-3 overflow-hidden rounded-lg border border-slate-200 bg-white">
         <iframe
           title="Vista previa del email"
           sandbox=""
           srcDoc={html || emptyPreviewDocument}
-          className="h-[520px] w-full bg-[#08162d]"
+          className="h-[520px] w-full bg-white"
         />
       </div>
-      <p className="mt-2 text-xs text-blue-100/65">El iframe usa sandbox y muestra el email centrado en un ancho objetivo de 600px.</p>
+      <p className="mt-2 text-xs text-slate-500">El iframe usa sandbox y muestra el email centrado en un ancho objetivo de 600px.</p>
     </section>
   );
 }

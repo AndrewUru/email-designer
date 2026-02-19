@@ -13,10 +13,10 @@ import { clampNumber, isValidHttpUrl } from "@/lib/email/validation";
 import { useEmailStore } from "@/store/email-store";
 
 const inputClassName =
-  "mt-1 w-full rounded-lg border border-blue-300/30 bg-[#0f2242] px-3 py-2 text-sm text-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300";
+  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500";
 
 const labelClassName =
-  "block text-xs font-semibold uppercase tracking-wide text-blue-100/70";
+  "block text-xs font-semibold uppercase tracking-wide text-slate-500";
 
 interface LabeledFieldProps {
   label: string;
@@ -400,8 +400,8 @@ export function BlockPropertiesPanel() {
 
   return (
     <aside className="space-y-4">
-      <section className="overflow-hidden rounded-2xl border border-blue-300/20 bg-[#0a1a34] p-4 shadow-sm">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-blue-100/80">
+      <section>
+        <h2 className="text-sm font-semibold text-slate-900">
           Tema
         </h2>
         <div className="mt-3 space-y-3">
@@ -449,12 +449,12 @@ export function BlockPropertiesPanel() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-blue-300/20 bg-[#0a1a34] p-4 shadow-sm">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-blue-100/80">
+      <section className="border-t border-slate-200 pt-4">
+        <h2 className="text-sm font-semibold text-slate-900">
           Propiedades
         </h2>
         {!selectedBlock ? (
-          <p className="mt-3 rounded-lg border border-dashed border-blue-300/25 bg-blue-500/5 p-4 text-sm text-blue-100/70">
+          <p className="mt-3 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-500">
             Selecciona un bloque en el canvas para editarlo.
           </p>
         ) : (

@@ -143,17 +143,13 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
 
   return (
     <>
-      <section className="rounded-2xl border border-blue-300/20 bg-[#0a1a34] p-4 shadow-sm">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-blue-100/80">
-          Exportar
-        </h3>
-
-        <div className="mt-3 flex flex-wrap gap-2">
+      <section>
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => void handleCopy()}
             disabled={isDisabled}
-            className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+            className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
           >
             Copiar HTML
           </button>
@@ -162,7 +158,7 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
             type="button"
             onClick={handleDownload}
             disabled={isDisabled}
-            className="rounded-lg border border-blue-300/30 bg-blue-500/10 px-3 py-2 text-sm font-medium text-blue-50 transition hover:bg-blue-500/20 disabled:cursor-not-allowed disabled:bg-blue-300/10 disabled:text-blue-100/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+            className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:text-slate-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
           >
             Descargar .html
           </button>
@@ -170,42 +166,42 @@ export function ExportActions({ html, fileName }: ExportActionsProps) {
             type="button"
             onClick={() => setIsSendModalOpen(true)}
             disabled={isDisabled}
-            className="rounded-lg border border-emerald-300/30 bg-emerald-500/10 px-3 py-2 text-sm font-medium text-emerald-200 transition hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:bg-blue-300/10 disabled:text-blue-100/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+            className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:text-slate-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
           >
             Enviar prueba
           </button>
         </div>
 
-        <div className="mt-4 border-t border-blue-300/20 pt-4">
-          <h4 className="text-xs font-semibold uppercase tracking-wide text-blue-100/70">
+        <div className="mt-4 border-t border-slate-200 pt-4">
+          <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500">
             Template local
           </h4>
           <div className="mt-2 flex flex-wrap gap-2">
             <button
               type="button"
               onClick={handleSaveTemplate}
-              className="rounded-lg border border-blue-300/30 bg-blue-500/10 px-3 py-2 text-sm font-medium text-blue-50 transition hover:bg-blue-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+              className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
             >
               Guardar template
             </button>
             <button
               type="button"
               onClick={handleLoadTemplate}
-              className="rounded-lg border border-blue-300/30 bg-blue-500/10 px-3 py-2 text-sm font-medium text-blue-50 transition hover:bg-blue-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+              className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
             >
               Cargar guardado
             </button>
             <button
               type="button"
               onClick={handleResetTemplate}
-              className="rounded-lg border border-red-300/35 bg-red-500/10 px-3 py-2 text-sm font-medium text-red-200 transition hover:bg-red-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+              className="rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm font-medium text-red-700 transition hover:bg-red-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
             >
               Restablecer
             </button>
           </div>
         </div>
 
-        <p aria-live="polite" className="mt-2 text-xs text-blue-100/70">
+        <p aria-live="polite" className="mt-2 text-xs text-slate-500">
           {status ?? "El export usa HTML inline generado por MJML + Juice."}
         </p>
       </section>
